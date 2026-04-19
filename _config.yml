@@ -1,3 +1,5 @@
+title: Kei's Blog
+theme: minima
 collections:
   tags:
     output: true
