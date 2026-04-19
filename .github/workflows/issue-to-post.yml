@@ -96,7 +96,7 @@ jobs:
           echo "$TAGS" | while read tag; do
             [ -z "$tag" ] && continue
 
-            cat > "_tags/$tag.md" <<EOF
+cat > "_tags/$tag.md" <<EOF
 ---
 layout: tag
 name: $tag
