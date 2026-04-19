@@ -1,5 +1,6 @@
 title: Kei's Blog
 theme: minima
+baseurl: "/blogs"
 collections:
   tags:
     output: true

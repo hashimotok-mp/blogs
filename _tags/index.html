@@ -9,7 +9,7 @@ title: タグ一覧
   {% assign tags = site.posts | map: "tags" | flatten | uniq | sort %}
   {% for tag in tags %}
     <li>
-      <a href="/tags/{{ tag }}/">{{ tag }}</a>
+      <a href="{{ site.baseurl }}/tags/{{ tag }}/">{{ tag }}</a>
     </li>
   {% endfor %}
 </ul>
