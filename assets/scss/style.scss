@@ -1,6 +1,9 @@
 @import "variables";
 @import "layout";
 @import "card";
+@import "tag";
+@import "post";
+@import "toc";
 
 @media (prefers-color-scheme: dark) {
     body {

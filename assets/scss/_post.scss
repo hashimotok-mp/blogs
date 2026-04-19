@@ -1,0 +1,132 @@
+.post {
+    max-width: 720px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+/* ===== タイトル ===== */
+.post-header {
+    margin-bottom: 40px;
+
+    h1 {
+        font-size: 32px;
+        line-height: 1.4;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+}
+
+.post-meta {
+    font-size: 13px;
+    color: #888;
+
+    .post-tags a {
+        margin-left: 8px;
+        text-decoration: none;
+        color: #666;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+h2, h3 {
+    scroll-margin-top: 80px;
+}
+
+/* ===== 本文 ===== */
+.post-content {
+    font-size: 16px;
+    line-height: 1.9;   // ← 読みやすさの核心
+    color: #222;
+
+    p {
+        margin-bottom: 20px;
+    }
+
+    /* 見出し */
+    h2 {
+        margin-top: 40px;
+        font-size: 22px;
+        border-left: 4px solid #000;
+        padding-left: 10px;
+    }
+
+    h3 {
+        margin-top: 30px;
+        font-size: 18px;
+    }
+
+    /* リスト */
+    ul, ol {
+        padding-left: 20px;
+        margin-bottom: 20px;
+    }
+
+    li {
+        margin-bottom: 6px;
+    }
+
+    /* 引用 */
+    blockquote {
+        border-left: 4px solid #ddd;
+        padding-left: 12px;
+        color: #666;
+        margin: 20px 0;
+    }
+
+    /* コード */
+    pre {
+        background: #1e1e1e;
+        color: #eee;
+        padding: 16px;
+        border-radius: 10px;
+        overflow-x: auto;
+        margin: 20px 0;
+    }
+
+    code {
+        background: #f4f4f4;
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+    pre code {
+        background: none;
+        padding: 0;
+    }
+
+    /* 画像 */
+    img {
+        max-width: 100%;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+
+    /* リンク */
+    a {
+        color: #007acc;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+/* ===== フッター ===== */
+.post-footer {
+    margin-top: 50px;
+
+    a {
+        font-size: 14px;
+        color: #666;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

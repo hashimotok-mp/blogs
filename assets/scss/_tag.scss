@@ -1,0 +1,75 @@
+.tag-header {
+    margin-bottom: 40px;
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 6px;
+        color: #007acc;
+    }
+
+    .tag-count {
+        font-size: 13px;
+        color: #888;
+    }
+}
+
+/* 一覧 */
+.tag-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* 記事カード（ミニマル） */
+.tag-card {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 18px;
+
+    h2 {
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.tag-date {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.tag-excerpt {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+/* タグ */
+.tag-tags {
+    a {
+        font-size: 12px;
+        color: #666;
+        margin-right: 6px;
+        text-decoration: none;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: #f0f4ff;
+
+        &.active {
+            font-weight: bold;
+            color: #000;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
