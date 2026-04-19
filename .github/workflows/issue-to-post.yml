@@ -32,11 +32,18 @@ jobs:
           BODY="${{ github.event.issue.body }}"
           BODY=$(echo "$BODY" | tr -d '\r')
 
-          EVENT='${{ toJson(github.event) }}'
+          TITLE=$(echo "$BODY" | awk '
+            /### タイトル/ {getline; print; exit}
+          ')
 
-          TITLE=$(echo "$EVENT" | jq -r '.issue.body.title')
-          TAGS=$(echo "$EVENT" | jq -r '.issue.body.tags')
-          CONTENT=$(echo "$EVENT" | jq -r '.issue.body.content')
+          TAGS=$(echo "$BODY" | awk '
+            /### タグ/ {getline; print; exit}
+          ')
+
+          CONTENT=$(echo "$BODY" | awk '
+            /### 本文/ {flag=1; next}
+            flag
+          ')
 
           if [ -n "$TAGS" ]; then
             TAG_LINE="tags: [$TAGS]"
