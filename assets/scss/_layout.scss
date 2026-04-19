@@ -11,19 +11,19 @@ body {
 }
 
 main {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 0 16px;
+    max-width: 720px;   // ← 狭くするのが超重要
+    margin: 60px auto;
+    padding: 0 20px;
 }
 
 header {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    padding: 16px 24px;
+    border: none;
+    text-align: center;
+    padding: 40px 0 20px;
 
     h1 {
-        margin: 0;
         font-size: 20px;
+        font-weight: 600;
     }
 
     nav {
@@ -44,24 +44,28 @@ header {
 
 h1 {
     font-size: 28px;
-    margin-bottom: 16px;
+    font-weight: 600;
+    margin-bottom: 24px;
 }
 
 h2 {
-    margin-top: 32px;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 40px;
 }
 
 input[type="text"] {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px 12px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    padding: 10px 4px;
     font-size: 14px;
-    transition: $transition;
+    background: transparent;
 
     &:focus {
         outline: none;
-        border-color: $color-primary;
-        box-shadow: 0 0 0 3px rgba(0,122,204,0.1);
+        border-color: #000;
+        box-shadow: none;
     }
 }
