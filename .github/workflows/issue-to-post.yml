@@ -35,7 +35,7 @@ jobs:
           EVENT='${{ toJson(github.event) }}'
 
           TITLE=$(echo "$EVENT" | jq -r '.issue.body.title')
-          TAGS=$(echo "$TAGS" | tr -d '"' | sed 's/,/, /g')
+          TAGS=$(echo "$EVENT" | jq -r '.issue.body.tags')
           CONTENT=$(echo "$EVENT" | jq -r '.issue.body.content')
 
           if [ -n "$TAGS" ]; then
