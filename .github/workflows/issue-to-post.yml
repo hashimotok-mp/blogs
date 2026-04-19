@@ -27,16 +27,23 @@ jobs:
       # =========================
       - name: Create Post
         run: |
-          BODY=$(cat <<'EOF'
-          ${{ github.event.issue.body }}
-          EOF
-          )
-          TITLE=$(echo "$BODY" | sed -n '/^タイトル$/ {n;p;}' | head -n 1)
+          BODY="${{ github.event.issue.body }}"
           NUMBER="${{ github.event.issue.number }}"
-          CONTENT=$(echo "$BODY" | sed -n '/^本文/,$p' | sed '1d')
 
-          # 🔖 タグ抽出（"aaa,bbb" 形式）
-          RAW_TAGS=$(echo "$BODY" | sed -n 's/.*タグ.*"\(.*\)".*/\1/p')
+          # =========================
+          # タイトル抽出
+          # =========================
+          TITLE=$(echo "$BODY" | sed -n '/^タイトル$/ {n;p;}' | head -n 1 | tr -d '\r')
+
+          # =========================
+          # 本文抽出
+          # =========================
+          CONTENT=$(echo "$BODY" | sed -n '/^本文$/,$p' | sed '1d')
+
+          # =========================
+          # タグ抽出
+          # =========================
+          RAW_TAGS=$(echo "$BODY" | sed -n '/^タグ/ {n;p;}' | head -n 1)
           RAW_TAGS=$(echo "$RAW_TAGS" | tr -d '"')
           TAGS=$(echo "$RAW_TAGS" | sed 's/,/, /g')
 
@@ -53,12 +60,6 @@ jobs:
           FILE="_posts/${DATE}-${TIME}.md"
 
           echo "Creating $FILE"
-
-          # 二重投稿防止
-          if grep -rl "source_issue: ${NUMBER}" _posts/ 2>/dev/null; then
-            echo "Post already exists. Skipping."
-            exit 0
-          fi
 
           mkdir -p _posts
 
