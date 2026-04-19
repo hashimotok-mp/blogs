@@ -1,6 +1,6 @@
 name: Blog Post
 description: 新しい記事を書く
-title: "[POST] "
+title: ""
 body:
   - type: input
     id: title

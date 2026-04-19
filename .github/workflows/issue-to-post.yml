@@ -27,8 +27,14 @@ jobs:
       # =========================
       - name: Create Post
         run: |
-          TITLE="${{ github.event.issue.title }}"
-          BODY="${{ github.event.issue.body }}"
+          TITLE=$(cat <<'EOF'
+          ${{ github.event.issue.title }}
+          EOF
+          )
+          BODY=$(cat <<'EOF'
+          ${{ github.event.issue.body }}
+          EOF
+          )
           NUMBER="${{ github.event.issue.number }}"
 
           # 🔖 タグ抽出（"aaa,bbb" 形式）
@@ -67,7 +73,7 @@ jobs:
             echo "$TAG_LINE"
             echo "---"
             echo ""
-            echo "$BODY"
+            printf "%s\n" "$BODY"
           } > "$FILE"
 
       # =========================
