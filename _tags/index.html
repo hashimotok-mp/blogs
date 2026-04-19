@@ -1,0 +1,15 @@
+---
+layout: default
+title: タグ一覧
+---
+
+<h1>タグ一覧</h1>
+
+<ul>
+  {% assign tags = site.posts | map: "tags" | flatten | uniq | sort %}
+  {% for tag in tags %}
+    <li>
+      <a href="/tags/{{ tag }}/">{{ tag }}</a>
+    </li>
+  {% endfor %}
+</ul>
