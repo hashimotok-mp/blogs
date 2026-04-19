@@ -27,24 +27,22 @@ jobs:
       # =========================
       - name: Create Post
         run: |
-          BODY="${{ github.event.issue.body }}"
           NUMBER="${{ github.event.issue.number }}"
 
-          # =========================
-          # タイトル抽出
-          # =========================
-          TITLE=$(echo "$BODY" | sed -n '/^タイトル$/ {n;p;}' | head -n 1 | tr -d '\r')
+          BODY="${{ github.event.issue.body }}"
+          BODY=$(echo "$BODY" | tr -d '\r')
+
+          TITLE=$(echo "$BODY" | awk '/タイトル/ {getline; print; exit}' | sed 's/^ *//;s/ *$//')
 
           # =========================
           # 本文抽出
           # =========================
-          CONTENT=$(echo "$BODY" | sed -n '/^本文$/,$p' | sed '1d')
+          CONTENT=$(echo "$BODY" | awk '/本文/ {flag=1; next} flag')
 
           # =========================
           # タグ抽出
           # =========================
-          RAW_TAGS=$(echo "$BODY" | sed -n '/^タグ/ {n;p;}' | head -n 1)
-          RAW_TAGS=$(echo "$RAW_TAGS" | tr -d '"')
+          RAW_TAGS=$(echo "$BODY" | awk '/タグ/ {getline; print; exit}' | tr -d '"')
           TAGS=$(echo "$RAW_TAGS" | sed 's/,/, /g')
 
           if [ -n "$TAGS" ]; then
