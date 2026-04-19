@@ -105,9 +105,9 @@ jobs:
 
           for tag in $TAGS; do
             cat <<EOF > "_tags/$tag.md"
----
-layout: tag
-name: $tag
----
-EOF
-    done
+      ---
+      layout: tag
+      name: $tag
+      ---
+      EOF
+          done
