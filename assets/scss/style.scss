@@ -12,18 +12,16 @@
     background: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     transition: all 0.2s ease;
-}
-
-/* ホバー */
-.post-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-
-/* タイトル */
-.post-card h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
+    /* ホバー */
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    /* タイトル */
+    h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+    }
 }
 
 /* 日付 */
@@ -46,8 +44,7 @@
     color: #007acc;
     text-decoration: none;
     margin-right: 6px;
-}
-
-.post-tags a:hover {
-    text-decoration: underline;
+    &:hover {
+        text-decoration: underline;
+    }
 }
