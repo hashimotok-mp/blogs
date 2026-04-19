@@ -1,0 +1,53 @@
+/* 全体 */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* カード */
+.post-card {
+    padding: 16px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+}
+
+/* ホバー */
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* タイトル */
+.post-card h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+/* 日付 */
+.post-date {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* 本文 */
+.post-excerpt {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+/* タグ */
+.post-tags a {
+    font-size: 12px;
+    color: #007acc;
+    text-decoration: none;
+    margin-right: 6px;
+}
+
+.post-tags a:hover {
+    text-decoration: underline;
+}
