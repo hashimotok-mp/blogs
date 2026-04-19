@@ -96,7 +96,7 @@ jobs:
           echo "$TAGS" | while read tag; do
             [ -z "$tag" ] && continue
 
-            printf "---\nlayout: tag\nname: %s\n---\n" "$tag" > "_tags/$tag.md"
+            printf -- "---\nlayout: tag\nname: %s\n---\n" "$tag" > "_tags/$tag.md"
           done
 
           done
