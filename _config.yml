@@ -1,7 +1,18 @@
 title: Kei's Blog
 theme: minima
 baseurl: "/blogs"
+timezone: Asia/Tokyo
+
+permalink: /:year/:month/:day/:title/
+
 collections:
   tags:
     output: true
     permalink: /tags/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
