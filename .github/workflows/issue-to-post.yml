@@ -27,10 +27,7 @@ jobs:
       # =========================
       - name: Create Post
         run: |
-          TITLE=$(cat <<'EOF'
-          ${{ github.event.issue.title }}
-          EOF
-          )
+          TITLE=$(echo "$BODY" | sed -n '/^タイトル$/ {n;p;}' | head -n 1)
           BODY=$(cat <<'EOF'
           ${{ github.event.issue.body }}
           EOF
