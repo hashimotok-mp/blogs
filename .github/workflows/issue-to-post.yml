@@ -99,8 +99,6 @@ jobs:
             printf -- "---\nlayout: tag\nname: %s\n---\n" "$tag" > "_tags/$tag.md"
           done
 
-          done
-
       # =========================
       # 🧹 draft削除
       # =========================
