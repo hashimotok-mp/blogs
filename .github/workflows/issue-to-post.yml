@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: write
-  issues: write  # ← 追加
+  issues: write
 
 jobs:
   build:
@@ -22,29 +22,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # =========================
+      # 📝 記事生成
+      # =========================
       - name: Create Post
         run: |
           TITLE="${{ github.event.issue.title }}"
           BODY="${{ github.event.issue.body }}"
           NUMBER="${{ github.event.issue.number }}"
-          # tags取得（簡易パース）
-          RAW_TAGS=$(echo "${{ github.event.issue.body }}" | sed -n 's/.*タグ.*"\(.*\)".*/\1/p')
 
-          # クォート削除（念のため）
+          # 🔖 タグ抽出（"aaa,bbb" 形式）
+          RAW_TAGS=$(echo "$BODY" | sed -n 's/.*タグ.*"\(.*\)".*/\1/p')
           RAW_TAGS=$(echo "$RAW_TAGS" | tr -d '"')
-
-          # カンマ → YAML配列形式
           TAGS=$(echo "$RAW_TAGS" | sed 's/,/, /g')
 
-          # tags行生成（空なら出さない）
           if [ -n "$TAGS" ]; then
-          TAG_LINE="tags: [$TAGS]"
+            TAG_LINE="tags: [$TAGS]"
           else
-          TAG_LINE=""
+            TAG_LINE=""
           fi
 
           export TZ=Asia/Tokyo
-
           DATE=$(date +'%Y-%m-%d')
           TIME=$(date +'%H%M%S')
 
@@ -52,11 +50,13 @@ jobs:
 
           echo "Creating $FILE"
 
-          # 🛑 二重投稿防止
+          # 二重投稿防止
           if grep -rl "source_issue: ${NUMBER}" _posts/ 2>/dev/null; then
             echo "Post already exists. Skipping."
             exit 0
           fi
+
+          mkdir -p _posts
 
           {
             echo "---"
@@ -70,30 +70,14 @@ jobs:
             echo "$BODY"
           } > "$FILE"
 
-      - name: Remove draft label
-        uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: draft
-
-      - name: Commit & Push
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add .
-          git commit -m "Publish post from issue #${{ github.event.issue.number }}" || echo "No changes"
-          git push
-
-      - name: Close Issue
-        uses: peter-evans/close-issue@v3
+      # =========================
+      # 🏷️ タグページ生成（完全版）
+      # =========================
       - name: Generate tag pages
         run: |
           mkdir -p _tags
-
-          # 既存タグ削除（再生成）
           rm -f _tags/*.md
 
-          # 全記事からtags抽出
           TAGS=$(grep -rhoP '^tags: \[.*\]' _posts/ \
             | sed 's/tags: \[//' \
             | sed 's/\]//' \
@@ -103,11 +87,40 @@ jobs:
             | tr -d '"' \
             | sort -u)
 
-          for tag in $TAGS; do
-            cat <<EOF > "_tags/$tag.md"
-      ---
-      layout: tag
-      name: $tag
-      ---
-      EOF
+          echo "$TAGS" | while read tag; do
+            [ -z "$tag" ] && continue
+
+            cat > "_tags/$tag.md" <<EOF
+---
+layout: tag
+name: $tag
+---
+EOF
+
           done
+
+      # =========================
+      # 🧹 draft削除
+      # =========================
+      - name: Remove draft label
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: draft
+
+      # =========================
+      # 💾 保存
+      # =========================
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add .
+          git commit -m "Publish post from issue #${{ github.event.issue.number }}" || echo "No changes"
+          git push
+
+      # =========================
+      # 🔒 Issue閉じる
+      # =========================
+      - name: Close Issue
+        uses: peter-evans/close-issue@v3
